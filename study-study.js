@@ -2,7 +2,7 @@
 // @name         学学学
 // @namespace    http://tampermonkey.net/
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAMSSURBVDhPbZNJaBRBFIarJ8lk0UmcJTFuKCJ6iIJGUIILirghoqBiDkLwEBQVXAhRQUUjuIAK6sHoRRF3CEQQURBBEDyIGxJxi2J6Jt3Ts3XPTHdnMun6fVWTnLSheI/u/r/313tVzGKhg0kWMjUWcnUWtHUWcv636LszyPwitzVfxE0qYVNoWYaFUwkWRpSF+CDFf1cIMVYHrW460q076b9yDDCFG75qWEp9igm6EEeVoBdVKMpcxKDMVV89V1mAD/ir+XD/b55q38OTm7d5ZudxrrHxrgDYopIQxRTphFYQMaWeYq2ohmhZLYyV61CMGxCPxzlPrN5I7sod6WAMUBKHSRwmIUMsPAXJ1jbkb90FLwzDGxkBJ8Dw934erQqAHIwCSpUJEKFYJ8Wptnbk7z4g8T1kL1xB9vxFeLkcigMqAX7y/OVucuAngBImB1RZiRBgHNSKGuTvPITd85iEV2GR2Dp5BubhEyi8/QhjzQYq4ONG81LoNY1jDiJQ2Xiu1tRi6N0H2Pd7YB47DfthDzIHOpG72o3cjVuwzl3AH3JXcltFWwiOOQgStZy7L19h6PUbJLe3YSQ6CGP9Zgy9fY/Mvg4UPn+BWhmQWxQAsW1RnGlKvaMS1Tx+SvQH8RXU7WgM6YOdyN++h9y1m7Af9SJ7pbtUvUxMp3RmJGCQVTr6rCahRf76TaR275d5vHk5vGwemY5OFPr6YJ0ete8bBYw5iDHm5M5fkiJjayvcZy9Q1DTozUvku8yBI3DIQeH9RzkdMWYBiFHjdYUAuj9kF7/9oBl7XJ/bIu0P06i0OQvlzJ2nz5HYtEXC0u17R5s4gRxESoDEghaXk9izsp42s5kXjYTshTZ/MXdfvJR5csdObnadlbl5oourZQFPZZV0lIMuy63dmMKvARQ+9XF96my4vU/AczbSbbuQWLUBnpFC8etPxOctgtVxFDyThdP7hJvL1iLNgmmW8TceSldOsvSqia6u0HUuCznxqkZHr5lCV3ico1eEHT0wzYlPmOGIfsUrIna8YbabmdxkWeUNh/4CLOKGDB5Kaf8AAAAASUVORK5CYII=
-// @version      0.0.2
+// @version      0.0.3
 // @description  学学学学学学学学学学
 // @author       H
 // @match        https*://mooc1.chaoxing.com/mycourse/studentstudy*
@@ -16,6 +16,17 @@
 // @updateURL    https://raw.githubusercontent.com/X-ing-Ci/study-study/main/study-study.js
 // @noframes
 // ==/UserScript==
+
+/*
+V0.0.1 2023/3/3
+新增：
+1.课程视频阅读
+
+V0.0.3 2023/3/4
+修复：
+1.x标题处理失败报错
+2.x.x标题处理失败报错
+*/
 
 
 //==脚本系统操作==
@@ -258,7 +269,12 @@ async function watchVideo() {
         if (!video_list[i].querySelector("span.posCatalog_name")) {
             continue;
         }
-        if (video_list[i].querySelector("span.icon_Completed") || (video_list[i].querySelector("span.orangeNew") && video_list[i].querySelector("span.orangeNew").innerHTML != "2")) {
+        if (!video_list[i].querySelector("span.orangeNew")) {
+            video_list[i].querySelector("span.posCatalog_name").click();
+            await justWait(2000, 5000);
+            continue;
+        }
+        if (video_list[i].querySelector("span.icon_Completed") || video_list[i].querySelector("span.orangeNew").innerHTML != "2") {
             console.log(video_list[i].querySelector("span.posCatalog_name").querySelector("em").innerHTML + " 已完成");
             continue;
         }
