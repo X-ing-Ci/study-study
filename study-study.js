@@ -12,8 +12,8 @@
 // @grant        GM_getValue
 // @grant        GM_deleteValue
 // @grant        GM_listValues
-// @downloadURL  https://raw.githubusercontent.com/X-ing-Ci/study-study/main/study.js
-// @updateURL    https://raw.githubusercontent.com/X-ing-Ci/study-every-day/main/study.js
+// @downloadURL  https://raw.githubusercontent.com/X-ing-Ci/study-study/main/study-study.js
+// @updateURL    https://raw.githubusercontent.com/X-ing-Ci/study-study/main/study-study.js
 // @noframes
 // ==/UserScript==
 
